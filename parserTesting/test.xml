@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Movies MAIN.XML file -->
+<!-- MASTER BASE File of Movies [varese]MyDocs/mov/xml/mainsnnn.xml -->
+<!-- This file is copyright 1987 to 2003 by Gio Wiederhold.-->
+<!-- last updated 19July 2004 -->
+<!-- Usage is freely granted as long as the copyright is acknowledged.-->
+<!-- size about 12 000 movies, by about 3000 directors. -->
+<!-- See Remakes.xml for relationships between movie contents. -->
+<!-- Format Information -->
+<!-- Major sections -->
+<!-- 1. HITCHCOCK movies -->
+<!-- 2. Other Movies, director by director. -->
+<!-- the Directors appear by year of first film by director, and then alphabetically by director code -->
+<!-- The set of directors starting each year are preceded by a comment -->
+<!-- All films by one director appear in chronological sequence -->
+<!-- All movies have a unique code, composed of the director code and an  sequence number -->
+<!-- Missing sequence numbers may mean unlisted films or just incomplete information. -->
+<!-- The default initial sequence number for the films of a director is 10. -->
+<!-- All entries have been validated with Internet Explorer default XSLT -->
+<movies>
+	<!-- Movie Year: 1922 - Early British Movies by Alfred Hitchcock. -->
+	<directorfilms>
+		<director>
+			<dirid>H</dirid>
+			<dirstart>@1922</dirstart>
+			<dirname>Hitchcock</dirname>
+			<coverage>all
+early British</coverage>
+		</director>
+		<films>
+			<film>
+				<fid>DWG52</fid>
+				<t>Intolerance</t>
+				<year>1916</year>
+				<dirs>
+					<dir>
+						<dirk>R</dirk>
+						<dirn>Griffith</dirn>
+					</dir>
+					<dir>
+						<dirk>N</dirk>
+						<dirn>vonStroheim</dirn>
+					</dir>
+					<dir>
+						<dirk>N</dirk>
+						<dirn>T.Browning</dirn>
+					</dir>
+					<dir>
+						<dirk>N</dirk>
+						<dirn>vanDyke</dirn>
+					</dir>
+				</dirs>
+				<prods>
+					<prod>
+						<prodk>R</prodk>
+						<pname>Griffith</pname>
+					</prod>
+				</prods>
+				<studios>
+					<studioloc>USA</studioloc>
+				</studios>
+				<prcs>
+					<prc>bws</prc>
+					<prctext>with coloring</prctext>
+					<length>2h</length>
+				</prcs>
+				<cats>
+					<cat>epic</cat>
+					<cat>Drama</cat>
+				</cats>
+				<awards>
+					<aw>
+						<awtype>H</awtype>
+						<awattr>***</awattr>
+					</aw>
+				</awards>
+				<period>1910, 20AD,1572,1000BC</period>
+				<people>
+					<writers>
+						<names>
+							<name>Griffith</name>
+						</names>
+					</writers>
+					<cingraphs>
+						<names>
+							<name>Billy Bitzer</name>
+							<name>Karl Brown</name>
+						</names>
+					</cingraphs>
+				</people>
+				<notes />
+			</film>
+					</films>
+	</directorfilms>
+	<!-- Movie Year: 2003 - Interesting Movies. Directors after Jan. 2003. This section edited directly in XML. -->
+	<!-- Movie Year: 2004 - Interesting Movies. Directors after Jan. 2004. This section edited directly in XML. -->
+</movies>
