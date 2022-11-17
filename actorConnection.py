@@ -24,7 +24,7 @@ def load_actors():
             csv_data = csv.reader(csv_file)
             for row in csv_data:
                 person_id = row[0]
-                stage_name = row[1]
+                stage_name = row[1].lower()
                 gender = row[2]
                 role_type = row[3]
                 start_year = row[4]
@@ -63,4 +63,5 @@ def load_actors():
     print("ERRORS")
     for error in errors:
         print(error)
+
 main()

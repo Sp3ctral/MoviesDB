@@ -23,7 +23,7 @@ def load_actors():
             errors = []
             csv_data = csv.reader(csv_file)
             for row in csv_data:
-                id = row[0]
+                id = row[0].lower()
                 title = row[1]
                 year = row[2]
                 genre = row[3]

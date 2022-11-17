@@ -13,34 +13,28 @@ def main():
 
 def load_actors():
     try:
-        conn = psycopg2.connect(host="dhansen.cs.georgefox.edu",
-                                database="movie_bm",
-                                user="mhozi18",
-                                password="55480222Mh")
+        conn = psycopg2.connect(host="dhansen.cs.georgefox.edu",database="movie_bm",user="mhozi18",password="55480222Mh")
         cursor = conn.cursor()
 
         with open('casts_in.csv') as csv_file:
             errors = []
             csv_data = csv.reader(csv_file)
             for row in csv_data:
-                movie_id = row[0]
-                stage_name = row[1]
-                role_type = row[2]
-                role_desc = row[3]
-                role_name = row[4]
-                award_id = row[5]
-
+                if row[5] == "":
+                    row[5] = None
+                    
                 print(row)
                 try:
                     cursor.execute('begin')
                     cursor.execute(
                         "INSERT INTO casts_in (movie_id, stage_name, role_type, role_desc, role_name, award_id) VALUES (%s,%s,%s,%s,%s,%s)",
-                        (movie_id, stage_name, role_type, role_desc, role_name, award_id))
-                    conn.commit()
+                        (row[0], row[1], row[2], row[3], row[4], row[5]))
                 except(Exception, psycopg2.Error) as error:
                     errors.append(row)
                     print("Error: ", error)
                     cursor.execute('abort')
+                conn.commit()
+
         count = cursor.rowcount
         print(count, "record inserted successfully into remakes table")
 
