@@ -69,7 +69,7 @@ for tag in treeRoot.findall('./directorfilms/films/film'):
             except TypeError:
                 main.append(None)
 
-        # If the attribute we are on is not cats AND loc AND it's NULL, append emptry string to row
+        # If the attribute we are on is not cats AND loc AND it's NULL, append empty string to row
         if attribute != "cats" and attribute != "loc" and tag.find(attribute).text is None:
             main.append(None)
 

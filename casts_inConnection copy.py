@@ -8,19 +8,21 @@ import pandas as pd
 
 
 def main():
-    # Open actors and casts and filter out the rows in casts that aren't in the actors CSV.
-    # original = pd.read_csv("casts_in.csv", header=None)
+    # Open casts and filter out the rows in casts that are duplicates.
+    # original = pd.read_csv("MoviesDB/casts_in.csv", header=None)
     # removeDuplicateCasts(original)
 
+    # Open casts in and filter out movies that don't exist in movies tables
     # original = pd.read_csv("casts_filtered.csv", header=None)
     # other = pd.read_csv("movie.csv", header=None)
     # removeBogusMovies(original, other)
 
+    # Open casts in and filter out actors that don't exit in the actors table
     # original = pd.read_csv("casts_filtered.csv", header=None)
     # other = pd.read_csv("actor.csv", header=None)
     # removeBogusActors(original, other)
 
-    load_actors()
+    # load_actors()
 
 def removeDuplicateCasts(original):
     # DO NOT REMOVE THIS FOR CASTS_IN.CSV
