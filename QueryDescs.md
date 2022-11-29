@@ -32,7 +32,7 @@
 
 17. What are the categories (i.e., genre) of movies that "Ronald Reagan" appeared in as an actor?
 
-18.vWas there any year where more movies were made in England than in the US? If so, give the years.
+18.Was there any year where more movies were made in England than in the US? If so, give the years.
 
 19. "Paramount" is a famous studio. What category (i.e., genre) of movie was most commonly made by "Paramount"?
 
