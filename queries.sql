@@ -77,7 +77,7 @@ where not exists
    )
   order by title;
 
---> 10,218 row
+--> 10,981 row
 
 6. -- List the stagename of actors that have won an Academy Award for their role in a movie; include their name and 
    -- role, the name of the movie they won the award for, and the year they won; order the list by the year the movie
