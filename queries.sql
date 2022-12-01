@@ -207,7 +207,71 @@ and m.title != 'top gun'
 
 --> 2 rows
 
-15. 
+15. -- Give me the names of all actors within "six degrees" of "Kevin Bacon". Specifically, Bacon's co-stars (1st 
+    -- degree), the co-star's co-stars (2nd degree), etc. out to "six degrees". List the actors ordered by stagename.
+
+select distinct c1.stage_name
+from casts_in as c1 where c1.stage_name = 'kevin bacon'
+union
+select distinct c3.stage_name
+from casts_in as c2 
+join casts_in as c3 on c2.movie_id = c3.movie_id
+where c2.stage_name = 'kevin bacon'
+union
+select distinct c7.stage_name
+from casts_in as c4
+join casts_in as c5 on c4.movie_id = c5.movie_id
+join casts_in as c6 on c5.stage_name = c6.stage_name
+join casts_in as c7 on c6.movie_id = c7.movie_id
+where c4.stage_name = 'kevin bacon'
+union
+select distinct c13.stage_name
+from casts_in as c8
+join casts_in as c9 on c8.movie_id = c9.movie_id
+join casts_in as c10 on c9.stage_name = c10.stage_name
+join casts_in as c11 on c10.movie_id = c11.movie_id
+join casts_in as c12 on c11.stage_name = c12.stage_name
+join casts_in as c13 on c12.movie_id = c13.movie_id
+where c8.stage_name = 'kevin bacon'
+union
+select distinct c21.stage_name
+from casts_in as c14
+join casts_in as c15 on c14.movie_id = c15.movie_id
+join casts_in as c16 on c15.stage_name = c16.stage_name
+join casts_in as c17 on c16.movie_id = c17.movie_id
+join casts_in as c18 on c17.stage_name = c18.stage_name
+join casts_in as c19 on c18.movie_id = c19.movie_id
+join casts_in as c20 on c19.stage_name = c20.stage_name
+join casts_in as c21 on c20.movie_id = c21.movie_id
+where c14.stage_name = 'kevin bacon'
+union
+select distinct c31.stage_name
+from casts_in as c22
+join casts_in as c23 on c22.movie_id = c23.movie_id
+join casts_in as c24 on c23.stage_name = c24.stage_name
+join casts_in as c25 on c24.movie_id = c25.movie_id
+join casts_in as c26 on c25.stage_name = c26.stage_name
+join casts_in as c27 on c26.movie_id = c27.movie_id
+join casts_in as c28 on c26.stage_name = c28.stage_name
+join casts_in as c29 on c27.movie_id = c29.movie_id
+join casts_in as c30 on c28.stage_name = c30.stage_name
+join casts_in as c31 on c29.movie_id = c31.movie_id
+where c22.stage_name = 'kevin bacon'
+union
+select distinct c43.stage_name
+from casts_in as c32
+join casts_in as c33 on c32.movie_id = c33.movie_id
+join casts_in as c34 on c33.stage_name = c34.stage_name
+join casts_in as c35 on c34.movie_id = c35.movie_id
+join casts_in as c36 on c35.stage_name = c36.stage_name
+join casts_in as c37 on c36.movie_id = c37.movie_id
+join casts_in as c38 on c37.stage_name = c38.stage_name
+join casts_in as c39 on c38.movie_id = c39.movie_id
+join casts_in as c40 on c39.stage_name = c40.stage_name
+join casts_in as c41 on c40.movie_id = c41.movie_id
+join casts_in as c42 on c41.stage_name = c42.stage_name
+join casts_in as c43 on c42.movie_id = c43.movie_id
+where c32.stage_name = 'kevin bacon'
 
 16. -- List the names of all actors that have appeared in a movie directed by "Clint Eastwood" along with a count of 
     -- how frequently they've appeard in movies he directed ordered by the count (descending) and their name 
