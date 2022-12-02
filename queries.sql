@@ -77,7 +77,7 @@ where not exists
    )
   order by title;
 
---> 10,981 row
+--> 10,981 rows
 
 6. -- List the stagename of actors that have won an Academy Award for their role in a movie; include their name and 
    -- role, the name of the movie they won the award for, and the year they won; order the list by the year the movie
@@ -137,10 +137,19 @@ WHERE LENGTH(title) IN (
 
 --> 5 rows
 
-10. -- Can't do this, we didn't encode the writers.
+10. -- What movies did "George Fox" write?
+
+select title from movie as m 
+join writer as w on m.id = w.movie_id
+where w.first_name = 'george' and 
+w.last_name = 'fox';
+
+-- > 1 row
+
 
 11. -- Are there any actors that have played more than one role in the same movie?! If so, list the movie title, the 
     -- actor's name and the roles they played. Order by movie title, actor's name, and role.
+
 select m.title, p.first_name, p.last_name, c.role_name
 from movie as m
 join casts_in as c on m.id = c.movie_id
@@ -154,6 +163,7 @@ order by m.title, p.first_name, p.last_name, c.role_name;
 12. -- Are there any pairs of actors that appeared together in two different movies released in the same year? If so, 
     -- list the movie titles, the years, the actor's names and the roles they played. Order by movie title, year, 
     -- actor's names, and roles.
+
 select m1.title, m2.title, m1.year, m2.year, c1.stage_name, c2.stage_name, c1.role_name, c3.role_name, c2.role_name, c4.role_name
 from casts_in as c1
 join movie as m1
@@ -172,11 +182,13 @@ and m1.id != m2.id
 and c3.stage_name = c1.stage_name
 and c4.stage_name = c2.stage_name
 and c1.stage_name < c2.stage_name
-order by m1.title, m2.title, m1.year, c1.stage_name, c2.stage_name, c1.role_name, c3.role_name, c2.role_name, c4.role_name;
+order by m1.title, m2.title, m1.year, c1.stage_name, c2.stage_name, c1.role_name, c3.role_name, c2.role_name, 
+c4.role_name;
 
 --> 1,208 rows
 
 13. -- List the title, year, and role for movies that "Tom Cruise" appeared in ordered by the year.
+
 select m.title, m.year, c.role_name
 from movie as m
 join casts_in as c
@@ -184,12 +196,13 @@ on m.id = c.movie_id
 join actor as a
 on a.stage_name = c.stage_name
 where c.stage_name = 'tom cruise'
-order by m.year
+order by m.year;
 
 --> 22 rows
 
 14. -- Is there an actor that has appeared in a movie with "Val Kilmer" and also in a movie with "Tom Cruise" other 
     -- than "Top Gun"? Give the co-actor's name, the movie title, and who they appeard with (Cruise or Kilmer).
+
 select c1.stage_name
 from casts_in as c1
 join casts_in as c2
@@ -203,7 +216,7 @@ where c4.stage_name = 'val kilmer'
 and c2.stage_name = 'tom cruise'
 and c1.stage_name != 'val kilmer'
 and c1.stage_name != 'tom cruise'
-and m.title != 'top gun'
+and m.title != 'top gun';
 
 --> 2 rows
 
@@ -271,11 +284,12 @@ join casts_in as c40 on c39.stage_name = c40.stage_name
 join casts_in as c41 on c40.movie_id = c41.movie_id
 join casts_in as c42 on c41.stage_name = c42.stage_name
 join casts_in as c43 on c42.movie_id = c43.movie_id
-where c32.stage_name = 'kevin bacon'
+where c32.stage_name = 'kevin bacon';
 
 16. -- List the names of all actors that have appeared in a movie directed by "Clint Eastwood" along with a count of 
     -- how frequently they've appeard in movies he directed ordered by the count (descending) and their name 
     -- (ascending).
+
 select c.stage_name, count(c.movie_id) as num_movies
 from casts_in as c
 join directs as d
@@ -285,27 +299,37 @@ on p.id = d.person_id
 where p.first_name = 'Clint'
 and p.last_name = 'Eastwood'
 group by c.stage_name
-order by num_movies desc, c.stage_name
+order by num_movies desc, c.stage_name;
 
 --> 57 rows
 
 17. -- What are the categories (i.e., genre) of movies that "Ronald Reagan" appeared in as an actor?
+
 select distinct m.genre
 from movie as m
 join casts_in as c
 on m.id = c.movie_id
 join actor as a
 on a. stage_name = c.stage_name
-where a.stage_name = 'ronald reagan'
+where a.stage_name = 'ronald reagan';
 
 --> 7 rows
 
 18. -- Was there any year where more movies were made in England than in the US? If so, give the years.
-
+select year
+from (
+		select m.location as location, m.year as year, count(m.id) as num
+		from movie as m
+		group by m.year, m.location) as nest
+where location = 'USA' or location = 'England'
+group by year, nest.location
+order by location desc
+limit 1
 
 --> 1 row
 
 19. -- "Paramount" is a famous studio. What category (i.e., genre) of movie was most commonly made by "Paramount"?
+
 select m.genre, count(m.id)
 from made_by as mb
 join movie as m
@@ -321,8 +345,11 @@ join studio as s2
 on s2.id = mb2.studio_id
 where s2.name = 'Paramount' group by m2.genre) as nest)
 
+--> 1 row
+
 20. -- Has any person directed and produced a movie they've also acted in? If so, give their stagename, the title of 
     -- the movie they directed and produced, and the role(s) they played.
+
 select c.stage_name, m.title, c.role_name
 from movie as m
 join casts_in as c
@@ -350,8 +377,10 @@ order by actorCount desc
 
 22. -- For all of the generic movie categories (e.g., "drama", "mystery"), list the name of the category (long form, if 
     -- possible) and a count of how many movies are in that category in descending order of the counts.
+
 select m.genre, count(m.id) as movieCount
 from movie as m
+where m.genre not like '%,%'
 group by m.genre
 order by movieCount desc
 
@@ -360,6 +389,7 @@ order by movieCount desc
 23. -- Who was the oldest actor to appear in a movie? I.e., has the largest difference between their date of birth and 
     -- the release of a movie they appeared in. Give their name, rough age at the time, title of the movie, and the 
     -- role they played.
+
 select p.last_name, p.first_name, (m.year - p.dob) as age, m.title, c.role_name
 from casts_in as c
 join actor as a
@@ -382,7 +412,23 @@ on m2.id = c2.movie_id
 where m2.year is not null
 and p2.dob is not null) as nested);
 
+--> 1 row
+
 24. -- Give me a query that joins and returns everything in your database related to the original "Star Wars" movie.
+
+select * from movie join casts_in on movie.id = casts_in.movie_id 
+join actor on casts_in.stage_name = actor.stage_name 
+left join award on casts_in.award_id = award.id 
+left join directs on movie.id = directs.movie_id 
+left join made_by on made_by.movie_id = movie.id 
+left join studio on made_by.studio_id = studio.id 
+join movie_receives_award on movie_receives_award.movie_id = movie.id 
+join person on person.id = actor.person_id
+left join produces on produces.person_id = person.id
+join remakes on remakes.movie_id = movie.id
+where title = 'Star Wars';
+
+--> 29 rows
 
 
 
