@@ -61,8 +61,7 @@ with recursive findAncestor(priorfilmid, movie_id, depth) AS
 select max(depth), title from findAncestor
 join movie on priorfilmid = id
 group by priorfilmid, depth, title
-order by depth desc
-limit 1;
+order by depth desc;
 
 --> 1 row
 
@@ -95,7 +94,7 @@ on a.id = c.award_id
 where a.awarding_org ilike '%academy%'
 order by year;
 
---> 205 rows
+--> 20 rows
 
 7. -- Which movies, by name, won Academy Awards in 1970?
 
@@ -286,6 +285,8 @@ join casts_in as c42 on c41.stage_name = c42.stage_name
 join casts_in as c43 on c42.movie_id = c43.movie_id
 where c32.stage_name = 'kevin bacon';
 
+--> 5,230 rows
+
 16. -- List the names of all actors that have appeared in a movie directed by "Clint Eastwood" along with a count of 
     -- how frequently they've appeard in movies he directed ordered by the count (descending) and their name 
     -- (ascending).
@@ -324,7 +325,7 @@ from (
 where location = 'USA' or location = 'England'
 group by year, nest.location
 order by location desc
-limit 1
+limit 2
 
 --> 1 row
 
@@ -363,7 +364,7 @@ on per.id = p.person_id
 where d.person_id = p.person_id
 and per.first_name = c.stage_name
 
---> 1 row
+--> 4 row
 
 21. -- For all of the generic roletypes for actors, list the name of the roletype and a count of how many actors are 
     -- classified by that type in descending order of the counts.
